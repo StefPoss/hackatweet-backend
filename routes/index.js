@@ -3,7 +3,7 @@ import express from "express"
 const router = express.Router()
 
 router.get("/", (req, res) => {
-  res.send("Route /tweets OK")
+  res.send("Bienvenue sur Hackatweet backend !")
 })
 
 export default router
