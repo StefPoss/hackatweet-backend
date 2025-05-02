@@ -1,20 +1,13 @@
-import dotenv from "dotenv"
-import express from "express"
-import path from "path"
-import cookieParser from "cookie-parser"
-import logger from "morgan"
-import cors from "cors"
-import { fileURLToPath } from "url"
-import { dirname, join } from "path"
+require("dotenv").config()
+const express = require("express")
+const path = require("path")
+const cookieParser = require("cookie-parser")
+const logger = require("morgan")
+const cors = require("cors")
 
-import indexRouter from "./routes/index.js"
-import usersRouter from "./routes/users.js"
-import tweetsRouter from "./routes/tweets.js"
-
-dotenv.config()
-
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
+const indexRouter = require("./routes/index")
+const usersRouter = require("./routes/users")
+const tweetsRouter = require("./routes/tweets")
 
 const app = express()
 
@@ -23,10 +16,10 @@ app.use(logger("dev"))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
-app.use(express.static(join(__dirname, "public")))
+app.use(express.static(path.join(__dirname, "public")))
 
 app.use("/", indexRouter)
 app.use("/users", usersRouter)
 app.use("/tweets", tweetsRouter)
 
-export default app
+module.exports = app
