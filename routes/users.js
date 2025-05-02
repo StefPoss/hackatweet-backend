@@ -15,8 +15,8 @@ router.get("/", (req, res) => {
 
 router.post("/signup", (req, res) => {
   console.log("On est dans POST /users/signup")
-
-  if (!checkBody(req.body, ["username", "password"])) {
+  // On vérifie que les champs obligatoires sont bien remplis
+  if (!checkBody(req.body, ["username", "email", "password", "firstname"])) {
     res.json({ result: false, error: "Missing or empty fields" })
     return
   }
@@ -30,15 +30,21 @@ router.post("/signup", (req, res) => {
       // On construit le nouvel utilisateur
       const newUser = new User({
         username: req.body.username,
+        firstname: req.body.firstname,
         email: req.body.email,
         password: hash,
         token: token,
-        certified: false, // false par défaut = lambda | true = certifié
+        certified: false, // 0 par défaut = lambda | 1 = certifié
       })
 
       // On sauve les données utilisateur en base
       newUser.save().then((data) => {
-        res.json({ result: true, token: data.token, username: data.username })
+        res.json({
+          result: true,
+          token: data.token,
+          username: data.username,
+          firstname: data.firstname,
+        })
       })
     } else {
       // Si l'user existe déjà
@@ -49,18 +55,27 @@ router.post("/signup", (req, res) => {
 
 router.post("/signin", (req, res) => {
   console.log("On est dans POST /users/signin")
+  // On checke la validité du username et pwd avec le module checkAuth
   if (!checkBody(req.body, ["username", "password"])) {
     res.json({ result: false, error: "Missing or empty fields" })
     return
   }
 
+  // Si ok > On récupère les data correspondant au username
   User.findOne({
     username: req.body.username,
   }).then((data) => {
+    // On checke que le pwd corresponde
     if (data && bcrypt.compareSync(req.body.password, data.password)) {
       console.log("DATA.TOKEN IS", data.token)
 
-      res.json({ result: true, token: data.token })
+      // On renvoie le token, le username et le firstname au front
+      res.json({
+        result: true,
+        token: data.token,
+        username: data.username,
+        firstname: data.firstname,
+      })
     } else {
       res.json({ result: false, error: "User not found" })
     }

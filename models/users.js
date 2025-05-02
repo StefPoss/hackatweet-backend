@@ -2,6 +2,7 @@ const mongoose = require("mongoose")
 console.log("Collection USERS")
 
 const userSchema = mongoose.Schema({
+  firstname: String,
   username: {
     type: String,
     required: true, // champ obligatoire
