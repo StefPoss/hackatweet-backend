@@ -14,39 +14,41 @@ router.get("/", (req, res) => {
 })
 
 router.post("/signup", (req, res) => {
-  console.log("On est dans POST /users/signup");
-  
+  console.log("On est dans POST /users/signup")
+
   if (!checkBody(req.body, ["username", "password"])) {
     res.json({ result: false, error: "Missing or empty fields" })
     return
   }
 
-  // Check if the user has not already been registered
+  // On Checke que l'utilisateur n'existe pas déjà
   User.findOne({ username: req.body.username }).then((data) => {
     if (data === null) {
       const token = uid2(32)
       const hash = bcrypt.hashSync(req.body.password, 10)
 
+      // On construit le nouvel utilisateur
       const newUser = new User({
         username: req.body.username,
         email: req.body.email,
         password: hash,
         token: token,
-        certified: 0, // 0 par défaut = lambda | 1 = certifié
+        certified: false, // false par défaut = lambda | true = certifié
       })
 
+      // On sauve les données utilisateur en base
       newUser.save().then((data) => {
-        res.json({ result: true, token: data.token })
+        res.json({ result: true, token: data.token, username: data.username })
       })
     } else {
-      // User already exists in database
+      // Si l'user existe déjà
       res.json({ result: false, error: "User already exists" })
     }
   })
 })
 
 router.post("/signin", (req, res) => {
-  console.log("On est dans POST /users/signin");
+  console.log("On est dans POST /users/signin")
   if (!checkBody(req.body, ["username", "password"])) {
     res.json({ result: false, error: "Missing or empty fields" })
     return
