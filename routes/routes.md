@@ -33,8 +33,9 @@
 
 ### POST /users/signin
 
-→ Connexion avec username + mot de passe
+**Objectif de la route :** Connexion avec username + mot de passe
 
+**Paramètres attendus :**
 - Requête `x-www-form-urlencoded`
 - Champs requis :
 
@@ -84,7 +85,7 @@
     "likesCount": 4,
     "createdAt": "2025-05-02T12:00:00.000Z"
   },
-  ...
+  // tweets suivant
 ]
 ```
 
@@ -92,8 +93,9 @@
 
 ### POST /tweets
 
-→ Ajouter un tweet
+**Objectif de la route :** Ajouter un tweet
 
+**Paramètres attendus :**
 - Requête `x-www-form-urlencoded`
 - Champs requis :
 
@@ -110,7 +112,7 @@
     "_id": "...",
     "content": "...",
     "author": "...",
-    ...
+    // autre tweet s'il y a lieu
   }
 }
 ```
@@ -119,8 +121,9 @@
 
 ### DELETE /tweets/:id
 
-→ Supprimer un tweet (auth obligatoire + être l’auteur)
+**Objectif de la route :** Supprimer un tweet (auth obligatoire + être l’auteur)
 
+**Paramètres attendus :**
 - Requête `DELETE`
 - `token` envoyé dans le `body` (form-urlencoded)
 
