@@ -100,7 +100,7 @@ router.delete("/:id", (req, res) => {
               .json({ error: "not allowed to delete this tweet" })
           }
 
-          // Supprime le tweet (important : on cible l’instance, pas un deleteOne sans filtre)
+          // Supprime le tweet qu'on vient précisément de récupérer
           tweet
             .deleteOne()
             .then(() => {
