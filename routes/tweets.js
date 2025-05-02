@@ -22,8 +22,21 @@ router.get("/", (req, res) => {
         .populate("author", "username") // On en profite pour récupérer le username via la relation user_id
         .sort({ createdAt: -1 }) // On trie par ordre inverse de date
         .then((tweets) => {
-          // On renvoie l'objet tweets
-          res.json(tweets)
+          // On va chercher l'utilisateur lié au token pour savoir s'il a liké chaque tweet
+          User.findOne({ token }).then((user) => {
+            const tweetsWithLikeInfo = tweets.map((tweet) => {
+              return {
+                // on convertit le tweet venant de Mongoose en objet JS
+                // pour pouvoir lui injecter des champs dynamiques (comme likedByMe)
+                ...tweet.toObject(),
+                likedByMe: tweet.likedBy.includes(user._id), // true si l'utilisateur a liké ce tweet
+                likesCount: tweet.likedBy.length, // juste un compteur pour éviter que le front le recalcule
+              }
+            })
+
+            // On renvoie les tweets enrichis avec les infos dynamiques côté utilisateur
+            res.json(tweetsWithLikeInfo)
+          })
         })
         .catch((err) => {
           res.status(500).json({ error: "error while retrieving tweets" })
@@ -33,6 +46,7 @@ router.get("/", (req, res) => {
       res.status(500).json({ error: "authentication error" })
     })
 })
+
 
 // AJOUT D'UN TWEET
 router.post("/", (req, res) => {

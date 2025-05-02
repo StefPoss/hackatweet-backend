@@ -6,7 +6,7 @@
 
 ---
 
-### 🔹 POST /users/signup
+### POST /users/signup
 
 → Inscription d’un nouvel utilisateur
 
@@ -31,7 +31,7 @@
 
 ---
 
-### 🔹 POST /users/signin
+### POST /users/signin
 
 → Connexion avec username + mot de passe
 
@@ -58,24 +58,31 @@
 
 ---
 
-### 🔹 GET /tweets
+### GET /tweets
 
-→ Récupérer tous les tweets (authentification obligatoire)
+**Objectif de la route :** récupérer tous les tweets, triés par date décroissante, enrichis avec deux champs dynamiques pour éviter de stocker en base :
+- `likedByMe`: true/false selon que l'utilisateur connecté a liké le tweet
+- `likesCount`: compteur du nombre de likes
 
 - Requête : `GET` avec `token` en query string  
   Exemple : `/tweets?token=XXXXXXXX`
 
-- Réponse :
+**Paramètres attendus :**
+- `token` (en query string) : token de l'utilisateur connecté
 
+**Réponse :**
 ```json
 [
   {
-    "_id": "...",
-    "content": "...",
-    "author": { "username": "..." },
-    "tags": [...],
-    "likedBy": [...],
-    "createdAt": "..."
+    "_id": "abc123",
+    "content": "Ceci est un tweet",
+    "author": {
+      "_id": "user123",
+      "username": "toto"
+    },
+    "likedByMe": true,
+    "likesCount": 4,
+    "createdAt": "2025-05-02T12:00:00.000Z"
   },
   ...
 ]
@@ -83,7 +90,7 @@
 
 ---
 
-### 🔹 POST /tweets
+### POST /tweets
 
 → Ajouter un tweet
 
@@ -110,7 +117,7 @@
 
 ---
 
-### 🔹 DELETE /tweets/:id
+### DELETE /tweets/:id
 
 → Supprimer un tweet (auth obligatoire + être l’auteur)
 
