@@ -1,0 +1,232 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "Hackatweet",
+    "collectionId": "12e64266-d79c-4385-872d-5941196f6f45",
+    "dateExported": "2025-05-04T14:33:42.221Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "58eb5c94-f2b8-47f1-b2e2-78f38d7ecc5c",
+            "colId": "12e64266-d79c-4385-872d-5941196f6f45",
+            "containerId": "",
+            "name": "HACKATON GET /tags",
+            "url": "http://localhost:3000/tweets/tags?token=jxTDOZdsjjRx63YV7o37GetFIKGAckAE",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2025-05-04T14:29:22.696Z",
+            "modified": "2025-05-04T14:29:22.696Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "token",
+                    "value": "jxTDOZdsjjRx63YV7o37GetFIKGAckAE",
+                    "isPath": false
+                }
+            ]
+        },
+        {
+            "_id": "7d9aba75-c3aa-400b-9c62-c03589e9a35b",
+            "colId": "12e64266-d79c-4385-872d-5941196f6f45",
+            "containerId": "",
+            "name": "HACKATON POST /:id/like",
+            "url": "http://localhost:3000/tweets/6815180a0a1c59df075d110f/like",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2025-05-04T14:29:33.554Z",
+            "modified": "2025-05-04T14:29:33.554Z",
+            "headers": [],
+            "body": {
+                "type": "formencoded",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "token",
+                        "value": "TFSL6HazFZrHEwI4HEflUsU0YUilaq8s"
+                    }
+                ]
+            }
+        },
+        {
+            "_id": "0daadab1-0524-4bd6-8f32-eac38ef0eec8",
+            "colId": "12e64266-d79c-4385-872d-5941196f6f45",
+            "containerId": "",
+            "name": "HACKATON POST ADDTWEET /tweet ",
+            "url": "http://localhost:3000/tweets",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2025-05-04T14:29:38.454Z",
+            "modified": "2025-05-04T14:29:38.454Z",
+            "headers": [],
+            "body": {
+                "type": "formencoded",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "token",
+                        "value": "jxTDOZdsjjRx63YV7o37GetFIKGAckAE"
+                    },
+                    {
+                        "name": "content",
+                        "value": "Nouvel Hackatweet 26"
+                    },
+                    {
+                        "name": "tags",
+                        "value": "VMVD, bootcamp, PasFacile"
+                    }
+                ]
+            }
+        },
+        {
+            "_id": "9505d853-f0b2-4d1f-89ce-1c141ff4ed25",
+            "colId": "12e64266-d79c-4385-872d-5941196f6f45",
+            "containerId": "",
+            "name": "HACKATON POST /users/signin",
+            "url": "http://localhost:3000/users/signin",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2025-05-04T14:29:42.982Z",
+            "modified": "2025-05-04T14:29:42.982Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "usern",
+                    "value": "",
+                    "isDisabled": true,
+                    "isPath": false
+                }
+            ],
+            "body": {
+                "type": "formencoded",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "username",
+                        "value": "aze"
+                    },
+                    {
+                        "name": "email",
+                        "value": "aze@aze.com"
+                    },
+                    {
+                        "name": "password",
+                        "value": "aze"
+                    },
+                    {
+                        "name": "certified",
+                        "value": "0",
+                        "isDisabled": true
+                    }
+                ]
+            }
+        },
+        {
+            "_id": "10887ee8-6763-4c4f-b076-4fcc3ce2e249",
+            "colId": "12e64266-d79c-4385-872d-5941196f6f45",
+            "containerId": "",
+            "name": "HACKATON POST /users/signup",
+            "url": "http://localhost:3000/users/signup",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2025-05-04T14:29:48.882Z",
+            "modified": "2025-05-04T14:29:48.882Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "usern",
+                    "value": "",
+                    "isDisabled": true,
+                    "isPath": false
+                }
+            ],
+            "body": {
+                "type": "formencoded",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "username",
+                        "value": "az"
+                    },
+                    {
+                        "name": "email",
+                        "value": "az@az.com"
+                    },
+                    {
+                        "name": "password",
+                        "value": "az"
+                    },
+                    {
+                        "name": "certified",
+                        "value": "0"
+                    },
+                    {
+                        "name": "firstname",
+                        "value": "Stef255552"
+                    }
+                ]
+            }
+        },
+        {
+            "_id": "0a91d967-b68c-4eec-b43f-20b74902f4fe",
+            "colId": "12e64266-d79c-4385-872d-5941196f6f45",
+            "containerId": "",
+            "name": "HACKATON GET /tweet",
+            "url": "http://localhost:3000/tweets?token=jxTDOZdsjjRx63YV7o37GetFIKGAckAE",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2025-05-04T14:29:54.584Z",
+            "modified": "2025-05-04T14:29:54.584Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "token",
+                    "value": "jxTDOZdsjjRx63YV7o37GetFIKGAckAE",
+                    "isPath": false
+                }
+            ],
+            "body": {
+                "type": "formencoded",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "_id",
+                        "value": "6814a04720431ecba4f7740c",
+                        "isDisabled": true
+                    },
+                    {
+                        "name": "token",
+                        "value": "QP5Yt_bIqeuGHO9mfCp1ABZD2gjkRUOc"
+                    },
+                    {
+                        "name": "content",
+                        "value": "1er Hackatweet #VMVD",
+                        "isDisabled": true
+                    },
+                    {
+                        "name": "tags",
+                        "value": "\"VMVD\", \"bootcamp\"",
+                        "isDisabled": true
+                    }
+                ]
+            }
+        },
+        {
+            "_id": "870e1ac0-e2b3-45d2-9b3f-aa383f3e2b5b",
+            "colId": "12e64266-d79c-4385-872d-5941196f6f45",
+            "containerId": "",
+            "name": "HACKATON POST DELETE /tweet",
+            "url": "http://localhost:3000/tweets/6814b84540948124875c90a3",
+            "method": "DELETE",
+            "sortNum": 70000,
+            "created": "2025-05-04T14:30:00.362Z",
+            "modified": "2025-05-04T14:30:00.362Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\r\n  \"token\": \"QP5Yt_bIqeuGHO9mfCp1ABZD2gjkRUOc\"\r\n}\r\n",
+                "form": []
+            }
+        }
+    ],
+    "ref": "zD2hSKOOOh_eAGGCg4_Ahzs8Bjdx1EchNeeU7mSZ46ICE75PWmvmODsB6CvSuYCDDb1PNxEhJ7ZpFqta9GS4Kg"
+}
