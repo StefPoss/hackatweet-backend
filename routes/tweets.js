@@ -47,7 +47,6 @@ router.get("/", (req, res) => {
     })
 })
 
-
 // AJOUT D'UN TWEET
 router.post("/", (req, res) => {
   const { token, content, tags } = req.body
@@ -128,6 +127,69 @@ router.delete("/:id", (req, res) => {
           res.status(500).json({ error: "error while looking for this tweet" })
         })
     })
+    .catch(() => {
+      res.status(500).json({ error: "error while authenticating" })
+    })
+})
+
+// AJOUT / SUPPRESSION DE LIKE SUR UN TWEET
+router.post("/:id/like", (req, res) => {
+  const { token } = req.body
+  const tweetId = req.params.id
+
+  console.log("On est dans POST /tweets/:id/like reçu :", tweetId, token)
+
+  // On vérifie le token de l'utilisateur
+  User.findOne({ token })
+    .then((user) => {
+      if (!user) {
+        return res.status(401).json({ error: "Utilisateur non authentifié" })
+      }
+
+      // On récupère le tweet à liket
+      Tweet.findById(tweetId)
+        .then((tweet) => {
+          if (!tweet) {
+            return res.status(404).json({ error: "tweet not found" })
+          }
+
+          // On vérifie si l'utilisateur a déjà liké ce tweet
+          if (tweet.likedBy.includes(user._id)) {
+            // Si oui, on le retire du tableau likedBy
+            tweet.likedBy = tweet.likedBy.filter(
+              (id) => id.toString() !== user._id.toString()
+              // on passe en toString() car on ne peut pas comparer directement deux objets
+            )
+            liked = false
+          } else {
+            // Sinon, on ajoute son _id au tableau likedBy
+            tweet.likedBy.push(user._id)
+            liked = true
+          }
+
+          // On update le tweet en base
+          tweet
+            .updateOne()
+            .then((updatedTweet) => {
+              // On renvoie si liked true/false et le nombre de likes
+              res.json({
+                result: true,
+                message: "Tweet updated",
+                liked,
+                likeCount: updatedTweet.likedBy.length,
+              })
+            })
+            // Si une erreur survient lors de l'enregistrement du tweet mis à jour
+            .catch(() => {
+              res.status(500).json({ error: "error while deleting tweet" })
+            })
+        })
+         // Si le tweet avec l'ID donné n'existe pas
+        .catch(() => {
+          res.status(500).json({ error: "error while looking for this tweet" })
+        })
+    })
+    // Si l'utilisateur avec ce token n'existe pas)
     .catch(() => {
       res.status(500).json({ error: "error while authenticating" })
     })
