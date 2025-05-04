@@ -167,3 +167,21 @@
   "likedBy": ["6814d39d...", "6814d2ce8..."] // // uniquement si on veut savoir tous les user qui ont liké le tweet
 }
 ```
+
+---
+
+### GET /tweets/tags
+
+**Objectif de la route :** Renvoyer la liste des tags uniques présents dans tous les tweets.
+
+- Requête : `GET`
+- Paramètre attendu : `token` (en `query string`, ex: `/tweets/tags?token=abcd1234`)
+
+**Réponse :**
+
+```json
+{
+  "result": true,
+  "tags": ["code", "react", "fun"]
+}
+```
