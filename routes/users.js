@@ -77,6 +77,7 @@ router.post("/signin", (req, res) => {
         firstname: data.firstname,
       })
     } else {
+      // Si on ne trouve pas l'utilisateur
       res.json({ result: false, error: "User not found" })
     }
   })
