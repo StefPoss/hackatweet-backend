@@ -167,9 +167,9 @@ router.post("/:id/like", (req, res) => {
             liked = true
           }
 
-          // On update le tweet en base
+          // On sauvegarde le tweet en base
           tweet
-            .updateOne()
+            .save()
             .then((updatedTweet) => {
               // On renvoie si liked true/false et le nombre de likes
               res.json({
@@ -177,14 +177,16 @@ router.post("/:id/like", (req, res) => {
                 message: "Tweet updated",
                 liked,
                 likeCount: updatedTweet.likedBy.length,
+                likedBy: tweet.likedBy // uniquement si on veut savoir tous les user qui ont liké le tweet 
               })
             })
             // Si une erreur survient lors de l'enregistrement du tweet mis à jour
             .catch(() => {
-              res.status(500).json({ error: "error while deleting tweet" })
+              console.error("Erreur tweet.save():", err)
+              res.status(500).json({ error: "error while updating this tweet" })
             })
         })
-         // Si le tweet avec l'ID donné n'existe pas
+        // Si le tweet avec l'ID donné n'existe pas
         .catch(() => {
           res.status(500).json({ error: "error while looking for this tweet" })
         })

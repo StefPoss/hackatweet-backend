@@ -36,6 +36,7 @@
 **Objectif de la route :** Connexion avec username + mot de passe
 
 **Paramètres attendus :**
+
 - Requête `x-www-form-urlencoded`
 - Champs requis :
 
@@ -62,6 +63,7 @@
 ### GET /tweets
 
 **Objectif de la route :** récupérer tous les tweets, triés par date décroissante, enrichis avec deux champs dynamiques pour éviter de stocker en base :
+
 - `likedByMe`: true/false selon que l'utilisateur connecté a liké le tweet
 - `likesCount`: compteur du nombre de likes
 
@@ -69,9 +71,11 @@
   Exemple : `/tweets?token=XXXXXXXX`
 
 **Paramètres attendus :**
+
 - `token` (en query string) : token de l'utilisateur connecté
 
 **Réponse :**
+
 ```json
 [
   {
@@ -84,7 +88,7 @@
     "likedByMe": true,
     "likesCount": 4,
     "createdAt": "2025-05-02T12:00:00.000Z"
-  },
+  }
   // tweets suivant
 ]
 ```
@@ -96,6 +100,7 @@
 **Objectif de la route :** Ajouter un tweet
 
 **Paramètres attendus :**
+
 - Requête `x-www-form-urlencoded`
 - Champs requis :
 
@@ -111,7 +116,7 @@
   "tweet": {
     "_id": "...",
     "content": "...",
-    "author": "...",
+    "author": "..."
     // autre tweet s'il y a lieu
   }
 }
@@ -124,6 +129,7 @@
 **Objectif de la route :** Supprimer un tweet (auth obligatoire + être l’auteur)
 
 **Paramètres attendus :**
+
 - Requête `DELETE`
 - `token` envoyé dans le `body` (form-urlencoded)
 
@@ -133,5 +139,31 @@
 {
   "result": true,
   "message": "Tweet deleted"
+}
+```
+
+---
+
+### POST /tweets/:id/like
+
+**Objectif de la route :** Ajouter ou retirer un like sur un tweet, selon que l’utilisateur a déjà liké ou non.
+
+- Requête : `POST`
+- `token` attendu dans le `body` (format `x-www-form-urlencoded`)
+
+**Paramètres attendus :**
+
+- `token` (string) : token de l'utilisateur connecté
+- `:id` : ID du tweet à liker ou unliker
+
+**Réponse :**
+
+```json
+{
+  "result": true,
+  "message": "Tweet updated",
+  "liked": true,
+  "likeCount": 4,
+  "likedBy": ["6814d39d...", "6814d2ce8..."] // // uniquement si on veut savoir tous les user qui ont liké le tweet
 }
 ```
