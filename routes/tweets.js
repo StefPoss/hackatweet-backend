@@ -11,6 +11,8 @@ router.get("/", (req, res) => {
   // On récupère le token envoyé dans l'URL (ex: /tweets/tags?token=abcd1234)
   const { token } = req.query
 
+  console.log("On est dans GET /tweets/ token reçu :", token)
+
   // On n'autorise que si authentifié via le token
   checkAuth({ token })
     .then((isAuth) => {
@@ -54,6 +56,12 @@ router.get("/", (req, res) => {
 router.post("/", (req, res) => {
   // On récupère le token, le contenu du tweet et les tags via body (ex: { token: "xxxxx", content: "..." })
   const { token, content, tags } = req.body
+  console.log(
+    "On est dans POST /tweets/, token + content + tags reçu :",
+    token,
+    content,
+    tags
+  )
 
   // On checke s'il y a un token ou du contenu
   if (!token || !content) {
@@ -98,7 +106,11 @@ router.delete("/:id", (req, res) => {
   // On récupère l'ID du tweet à liker depuis l'URL (ex: /tweets/ABCD1234/like)
   const tweetId = req.params.id
 
-  console.log("On est dans DELETE /tweets/:id reçu :", tweetId, token)
+  console.log(
+    "On est dans DELETE /tweets/:id reçu tweetId + token :",
+    tweetId,
+    token
+  )
 
   // On n'autorise que si authentifié via le token
   User.findOne({ token })
@@ -214,6 +226,7 @@ router.post("/:id/like", (req, res) => {
 router.get("/tags", (req, res) => {
   // On récupère le token envoyé dans l'URL (ex: /tweets/tags?token=abcd1234)
   const { token } = req.query
+  console.log("On est dans GET /tweets/tags, token reçu :", token)
 
   // On n'autorise que si authentifié via le token
   checkAuth({ token })
