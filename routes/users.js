@@ -16,7 +16,7 @@ router.get("/", (req, res) => {
 router.post("/signup", (req, res) => {
   console.log("On est dans POST /users/signup")
   // On vérifie que les champs obligatoires sont bien remplis
-  if (!checkBody(req.body, ["username", "email", "password", "firstname"])) {
+  if (!checkBody(req.body, ["username", "firstname", "password"])) {
     res.json({ result: false, error: "Missing or empty fields" })
     return
   }
@@ -31,7 +31,6 @@ router.post("/signup", (req, res) => {
       const newUser = new User({
         username: req.body.username,
         firstname: req.body.firstname,
-        email: req.body.email,
         password: hash,
         token: token,
         certified: false, // 0 par défaut = lambda | 1 = certifié
